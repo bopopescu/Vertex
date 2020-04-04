@@ -1,0 +1,14 @@
+{
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "sqltools.connections": [
+        {
+            "database": "vertexdb",
+            "dialect": "MySQL",
+            "name": "Vertex",
+            "password": "0000",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+from flask import Flask, render_template, request, flash, session, redirect
+from flask_mysqldb import MySQL
+import mysql.connector
+import bcrypt
+
+app = Flask(__name__)
+
+app.secret_key = "appLogin"
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = '0000'
+app.config['MYSQL_DB'] = 'vertexdb'
+
+mysql = MySQL(app)
+
+semilla = bcrypt.gensalt()
+
+@app.route('/')
+def main():
+    if 'username' in session:
+        return render_template('home.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/home')
+def inicio():
+    if 'username' in session:
+        return render_template('home.html')
+    else:
+        return render_template('login.html')
+
+@app.route('/ingresar', methods=["GET", "POST"])
+def ingresar():
+    if(request.method=="GET"):
+        if 'username' in session:
+            print("Entraste")
+            return render_template('home.html')
+        else:
+            print("No entraste")
+            return render_template('login.html')
+    else:
+        nombre = request.form['username']
+        contra = request.form['password']
+        contra_encode = contra.encode("utf-8")
+        print(contra_encode)
+
+        cur = mysql.connection.cursor()
+
+        cur.callproc()
+
+        sQuery = "SELECT Nombre, Pass FROM usuario WHERE nombre = %s"
+
+        cur.execute(sQuery, [nombre])
+
+        usuario = cur.fetchone()
+
+        cur.close()
+
+        if(usuario != None):
+            contra_encriptado_encode = usuario[1].encode()
+            print(contra_encriptado_encode)
+            if(contra_encode == contra_encriptado_encode):
+                session['username'] = usuario[0]
+                return render_template('home.html')
+            else:
+                flash("La contraseña no es correcta", "alert-warning")
+                return render_template('login.html')
+
+@app.route('/salir')
+def salir():
+    session.clear()
+
+    return render_template('login.html')
+
+@app.route('/clientes')
+def clientes():
+    if 'username' in session:
+        return render_template('home.html')
+    else:
+        return render_template('login.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
