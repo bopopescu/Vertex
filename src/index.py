@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, session, redirect
 from flask_mysqldb import MySQL
-import mysql.connector
 import bcrypt
 
 app = Flask(__name__)
@@ -47,11 +46,7 @@ def ingresar():
 
         cur = mysql.connection.cursor()
 
-        cur.callproc()
-
-        sQuery = "SELECT Nombre, Pass FROM usuario WHERE nombre = %s"
-
-        cur.execute(sQuery, [nombre])
+        cur.callproc('autenticar', [nombre])
 
         usuario = cur.fetchone()
 
@@ -64,8 +59,8 @@ def ingresar():
                 session['username'] = usuario[0]
                 return render_template('home.html')
             else:
-                flash("La contraseña no es correcta", "alert-warning")
                 return render_template('login.html')
+
 
 @app.route('/salir')
 def salir():
