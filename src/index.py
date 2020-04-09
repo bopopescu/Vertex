@@ -61,7 +61,6 @@ def ingresar():
             else:
                 return render_template('login.html')
 
-
 @app.route('/salir')
 def salir():
     session.clear()
@@ -74,24 +73,28 @@ def clientes():
         return render_template('clientes.html')
     else:
         return render_template('login.html')
+
 @app.route('/juegos')
 def juegos():
     if 'username' in session:
         return render_template('juegos.html')
     else:
         return render_template('login.html')
+
 @app.route('/crearjuego')
 def crearjuego():
     if 'username' in session:
         return render_template('crearjuego.html')
     else:
         return render_template('login.html')
+
 @app.route('/gafas')
 def gafas():
     if 'username' in session:
         return render_template('gafas.html')
     else:
         return render_template('login.html')
+
 @app.route('/eventos')
 def eventos():
     if 'username' in session:
