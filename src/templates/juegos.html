@@ -1,6 +1,44 @@
 {% extends "layout.html" %}
+
+{% block head %}
+<title>Juegos</title>
+{% endblock %}
+
 {% block body%}
 <h1>Vista Juegos</h1>
+<div class="content">
+    <table>
+        <tr>
+            <th>Nombre Fabricante</th>
+            <th>Duracion</th>
+            <th>Version</th>
+            <th>Idioma</th>
+            <th>Nombre</th>
+            <th>Internet</th>
+            <th>Descripcion</th>
+            <th>Numero de Jugadores</th>
+            <th>Fecha Registrado</th> 
+            <th>Fecha Desinstalado</th> 
+            <th></th>
+        </tr>
+        {% for juego in juegos %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="#">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
 <form action="/crearjuego">
     <div>
         <button onclick="location.href='crearjuego.html';">Crear Juego</button>

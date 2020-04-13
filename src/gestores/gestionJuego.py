@@ -68,7 +68,7 @@ def modificarJuego(nombre):
         conn = MySQLConnection(**db_config)
 
         cursor = conn.cursor()
-        cursor.callproc('eliminarJuego', nombre)
+        cursor.callproc('modificarJuego', nombre)
 
         conn.commit()
 

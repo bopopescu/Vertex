@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session
 from flask_mysqldb import MySQL
 import bcrypt
 
@@ -17,13 +17,6 @@ semilla = bcrypt.gensalt()
 
 @app.route('/')
 def main():
-    if 'username' in session:
-        return render_template('home.html')
-    else:
-        return render_template('login.html')
-
-@app.route('/home')
-def inicio():
     if 'username' in session:
         return render_template('home.html')
     else:
