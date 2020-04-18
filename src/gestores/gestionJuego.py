@@ -1,16 +1,17 @@
 from mysql.connector import MySQLConnection, Error
-from python_mysql_dbconfig import read_db_config
+from src.conexion.python_mysql_dbconfig import  *
+from src.clases import juego
 
-def crearJuego(nomFab, duracion, version, idioma, nombre, internet, descripcion, numJugadores, fechaComienzo, fechaFinal):
+def crearJuego(fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final):
 
-    args = (nomFab, duracion, version, idioma, nombre, internet, descripcion, numJugadores, fechaComienzo, fechaFinal)
+    args = (fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
 
     try:
         db_config = read_db_config()
         conn = MySQLConnection(**db_config)
 
-        cursor = conn.cursor()
-        cursor.callproc('crearJuego', args)
+        cursor1 = conn.cursor()
+        cursor1.callproc('crearJuego', args)
 
         conn.commit()
 
@@ -18,7 +19,7 @@ def crearJuego(nomFab, duracion, version, idioma, nombre, internet, descripcion,
         print(e)
 
     finally:
-        cursor.close()
+        cursor1.close()
         conn.close()
 
 def verJuego(nombre):
@@ -27,10 +28,10 @@ def verJuego(nombre):
         db_config = read_db_config()
         conn = MySQLConnection(**db_config)
 
-        cursor = conn.cursor()
-        cursor.callproc('verJuego', nombre)
+        cursor2 = conn.cursor()
+        cursor2.callproc('verJuego', nombre)
 
-        jueguito = cursor.fetchall()
+        jueguito = cursor2.fetchall()
 
         for jueguitos in jueguito:
             return jueguitos
@@ -39,16 +40,16 @@ def verJuego(nombre):
         print(e)
 
     finally:
-        cursor.close()
+        cursor2.close()
         conn.close()
 
-def VerJuegos():
+def verJuegos():
     try:
         db_config = read_db_config()
         conn = MySQLConnection(**db_config)
 
         cursor = conn.cursor()
-        cursor.callproc('verJuego')
+        cursor.callproc('verJuegos')
 
         jueguito = cursor.fetchall()
 
@@ -96,3 +97,4 @@ def eliminarJuego(nombre):
     finally:
         cursor.close()
         conn.close()
+

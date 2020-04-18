@@ -1,4 +1,4 @@
-class Juego(object):
+class Juego():
 
     __nomFab = None
     __duracion = None
@@ -73,7 +73,7 @@ class Juego(object):
 
     @property
     def descripcion(self):
-        return self.__descrpicion
+        return self.__descripcion
 
     @descripcion.setter
     def descripcion(self, desc):

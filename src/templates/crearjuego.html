@@ -1,4 +1,50 @@
 {% extends "layout.html" %}
+
+{%block head%}
+<title>Crear Juego</title>
+{% endblock %}
+
 {% block body%}
 <h1>Crear Juego</h1>
+<div class="validate-input">
+    <input type="text" name="fabricante" placeholder="Nombre Fabricante">
+</div>
+<div class="validate-input">
+    <input type="number" name="duracion" placeholder="Duración">
+</div>
+<div class="validate-input">
+    <input type="number" name="version" placeholder="Versión">
+</div>
+<div class="validate-input">
+    <input type="text" name="idioma" placeholder="Idioma">
+</div>
+<div class="validate-input">
+    <input type="text" name="nombre" placeholder="Nombre">
+</div>
+<div class="validate-input">
+    ¿El juego requiere de internet?
+    <input type="radio" name="internet" value="1">
+    <label>Si</label>
+    <input type="radio" name="internet" value="0">
+    <label>No</label>
+</div>
+<div class="validate-input">
+    <input type="text" name="descripcion" placeholder="Descripción">
+</div>
+<div class="validate-input">
+    <input type="number" name="jugadores" placeholder="Número de Jugadores">
+</div>
+<div class="validate-input">
+    <input type="date" name="inicio" placeholder="Fecha Instalación">
+</div>
+<div class="validate-input">
+    <input type="date" name="final" placeholder="Fecha Desinstalación">
+</div>
+<br>
+
+<div class="form">
+    <form action="/crearjuego" method="POST">
+        <input type="submit" value="Añadir">
+    </form>
+</div>
 {% endblock %}

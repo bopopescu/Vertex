@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session
 from flask_mysqldb import MySQL
 import bcrypt
+from src.gestores.gestionJuego import *
+from src.clases import juego, cliente, gafa, evento
 
 app = Flask(__name__)
 
@@ -9,7 +11,7 @@ app.secret_key = "appLogin"
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = '0000'
-app.config['MYSQL_DB'] = 'vertexdb'
+app.config['MYSQL_DB'] = 'dbvertex'
 
 mysql = MySQL(app)
 
@@ -24,7 +26,7 @@ def main():
 
 @app.route('/ingresar', methods=["GET", "POST"])
 def ingresar():
-    if(request.method=="GET"):
+    if request.method=="GET":
         if 'username' in session:
             print("Entraste")
             return render_template('home.html')
@@ -70,13 +72,33 @@ def clientes():
 @app.route('/juegos')
 def juegos():
     if 'username' in session:
-        return render_template('juegos.html')
+        data = verJuegos()
+        return render_template('juegos.html', juegos = data)
     else:
         return render_template('login.html')
 
-@app.route('/crearjuego')
+@app.route('/crearjuego', methods=["GET", "POST"])
 def crearjuego():
     if 'username' in session:
+        if request.method == "GET":
+
+            fabricante = request.form.get('fabricante', None)
+            duracion = request.form.get('duracion', None)
+            version = request.form.get('version', None)
+            idioma = request.form.get('idioma', None)
+            nombre = request.form.get('nombre', None)
+            internet = request.form.get('internet', None)
+            descripcion = request.form.get('descripcion', None)
+            jugadores = request.form.get('jugadores', None)
+            inicio = request.form.get('inicio', None)
+            final = request.form.get('final', None)
+
+            try:
+                crearJuego(fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final)
+                return render_template('juegos.html')
+            except:
+                return render_template('login.html')
+
         return render_template('crearjuego.html')
     else:
         return render_template('login.html')
