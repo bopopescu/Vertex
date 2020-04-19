@@ -1,6 +1,7 @@
 from mysql.connector import MySQLConnection, Error
 from src.conexion.python_mysql_dbconfig import  *
 from src.clases import juego
+from flask_mysqldb import *
 
 def crearJuego(fabricante, duracion, version, idioma, nombre, internet, descripcion, jugadores, inicio, final):
 
