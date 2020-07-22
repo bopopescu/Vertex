@@ -17,7 +17,7 @@ use pool
 
 def query_pool():
     job_status = 2
-    _sql = "select *  from master_job_list j  where j.job_status  !=%s "
+    _sql = "select *  from main_job_list j  where j.job_status  !=%s "
     _args = (job_status,)
     task = query(example_config['local'], _sql, _args)
     logging.info("query_npool method query_npool result is %s ,input _data is %s ", task, _args)
@@ -31,7 +31,7 @@ pool in operation
 
 def query_pool_in():
     job_status = 2
-    _sql = "select *  from master_job_list j  where j.job_status  in (%s) "
+    _sql = "select *  from main_job_list j  where j.job_status  in (%s) "
     _args = (job_status,)
     task = query(example_config['local'], _sql, _args)
     logging.info("query_npool method query_npool result is %s ,input _data is %s ", task, _args)
@@ -45,7 +45,7 @@ pool size special operation
 
 def query_pool_size():
     job_status = 2
-    _sql = "select *  from master_job_list j  where j.job_status  in (%s) "
+    _sql = "select *  from main_job_list j  where j.job_status  in (%s) "
     _args = (job_status,)
     task = query(example_config['local'], _sql, _args)
     logging.info("query_npool method query_npool result is %s ,input _data is %s ", task, _args)
@@ -59,7 +59,7 @@ single query
 
 def query_npool():
     job_status = 2
-    _sql = "select *  from master_job_list j  where j.job_status  !=%s "
+    _sql = "select *  from main_job_list j  where j.job_status  !=%s "
     _args = (job_status,)
     task = query_single(example_config['local'], _sql, _args)
     logging.info("query_npool method query_npool result is %s ,input _data is %s ", task, _args)
@@ -100,7 +100,7 @@ dynamic pool
 
 def d_query():
     job_status = 1
-    _sql = "select *  from master_job_list j  where j.job_status  !=%s "
+    _sql = "select *  from main_job_list j  where j.job_status  !=%s "
     _args = (job_status,)
     task = query(example_config['local'], _sql, _args)
     logging.info("query_npool method query_npool result is %s ,input _data is %s ", task, _args)
